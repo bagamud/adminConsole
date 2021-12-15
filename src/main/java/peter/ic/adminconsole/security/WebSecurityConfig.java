@@ -1,4 +1,4 @@
-package peter.ic.bvd.security;
+package peter.ic.adminconsole.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,15 +42,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(
-                        "/dashboard**", "/manager**", "/evidences**", "/reports**",
-                        "/dashboard/**", "/manager/**", "/evidences/**", "/reports/**").authenticated()
+                        "/users**", "/profile", "/users/**", "/profile/**").authenticated()
                 .and()
                 .httpBasic()
-                .realmName("Журнал учета вещественных доказательств")
+                .realmName("Административная консоль")
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .permitAll().defaultSuccessUrl("/dashboard")
+                .permitAll().defaultSuccessUrl("/users")
                 .and()
                 .logout()
                 .permitAll()

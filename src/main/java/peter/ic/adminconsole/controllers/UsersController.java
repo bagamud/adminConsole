@@ -39,7 +39,7 @@ public class UsersController {
         return "users";
     }
 
-    @PostMapping("/profile")
+    @GetMapping("/profile")
     public String userProfile(Model model) {
         serviceDictionaries(model);
         return "profile";

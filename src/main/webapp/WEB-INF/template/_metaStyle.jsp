@@ -8,4 +8,4 @@
 <!-- Favicons -->
 <link rel="icon" href="${pageContext.request.contextPath}/img/favicons/favicon.ico">
 
-<link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sidebars.css" rel="stylesheet">

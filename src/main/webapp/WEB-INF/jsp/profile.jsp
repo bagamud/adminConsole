@@ -3,244 +3,216 @@
 <html lang="ru">
 <head>
     <jsp:include page="../template/_metaStyle.jsp"/>
-    <style>
-        fieldset {
-            border: 1px groove #ddd !important;
-            padding: 0 1.4em 1.4em 1.4em !important;
-            margin: 0 0 1em 0 !important;
-        }
-
-        legend {
-            font-size: 1.2em !important;
-            font-weight: bold !important;
-            text-align: left !important;
-        }
-    </style>
-    <title>Вещественные доказательства</title>
+    <title>Консоль администратора</title>
 </head>
-<body class="" style="background-color: rgba(205,219,245,0.39)">
+<body class="">
 
-<jsp:include page="../template/_menu.jsp"/>
-<div class="card m-auto col-md-10 order-md-1">
-    <div class="m-auto h2">
-        Карточка материала
+<%--<jsp:include page="../template/_menu.jsp"/>--%>
+<main>
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+        <div class="d-flex align-items-center text-white text-decoration-none">
+            <img alt="Russian Federation"
+                 height="30"
+                 src="${pageContext.request.contextPath}/img/gerb_mvdi-300x174.png"
+                 class="m-1"
+                 width="52"/>
+            <span class="fs-4"></span>
+        </div>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/users" class="nav-link active" aria-current="page">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        <path fill-rule="evenodd"
+                              d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                    </svg>
+                    Пользователи
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-book" viewBox="0 0 16 16">
+                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                    </svg>
+                    Справочники
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <div class="row">
+            <div class="col d-grid gap-2 d-md-flex justify-content-md-start">
+                <strong>${user.lastName} ${user.firstName.substring(0, 1)}. ${user.surname.substring(0, 1)}.</strong>
+            </div>
+            <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-sm btn-outline-light"
+                        onclick="location.href='${pageContext.request.contextPath}/logout'">Выход
+                </button>
+            </div>
+        </div>
     </div>
-    <form class="needs-validation" action="${pageContext.request.contextPath}/manager" method="post" name="form"
-          id="formId">
-        <input type="number" id="id" name="id" value="${proceeding.id}" hidden/>
-        <div class="row m-3">
-            <div class="col-md-3">
-                <label for="proceedingsType">Тип материала</label>
-                <select class="form-control custom-select d-block w-100" id="proceedingsType"
-                        name="proceedingsType">
-                    <option value="${proceeding.proceedingsType.id}">${proceeding.proceedingsType.title}</option>
-                    <core:forEach items="${proceedingsType}" var="type">
-                        <option value="${type.id}">${type.title}</option>
-                    </core:forEach>
-                </select></div>
-            <div class="col-md-3">
-                <label for="proceedingsStatus">Статус</label>
-                <select class="form-control custom-select d-block w-100" id="proceedingsStatus"
-                        name="proceedingsStatus">
-                    <option value="${proceeding.proceedingsStatus.id}">${proceeding.proceedingsStatus.title}</option>
-                    <core:forEach items="${proceedingsStatus}" var="status">
-                        <option value="${status.id}">${status.title}</option>
-                    </core:forEach>
-
-                </select>
-            </div>
-            <div class="col-md-3">
-                <label for="department">Орган внутренних дел</label>
-                <select class="form-control custom-select d-block w-100"
-                        id="department"
-                        name="department">
-                    <option value="${proceeding.department.id}">${proceeding.department.shortTitle}</option>
-                    <core:forEach items="${departments}" var="department">
-                        <option value="${department.id}">${department.shortTitle}</option>
-                    </core:forEach>
-
-                </select>
-            </div>
-            <div class="col-md-3">
-                <label for="services">Служба</label>
-                <select class="form-control custom-select d-block w-100"
-                        id="services"
-                        name="services">
-<%--                    <option value="${proceeding.services.id}">${proceeding.services.title}</option>--%>
-                    <core:forEach items="${services}" var="department">
-                        <option value="${services.id}">${services.title}</option>
-                    </core:forEach>
-                </select>
-            </div>
+    <div class="b-example-divider"></div>
+    <div class=" d-flex flex-column m-3 p-3">
+        <div class="text-center h2">
+            Профиль пользователя
         </div>
-        <div class="row m-3">
-            <div class="col-md-4 mb-3">
-                <label for="caseNumber">Номер</label>
-                <div class="input-group">
-                    <input class="form-control <%if (request.getAttribute("error") != null) out.print("is-invalid");%>"
-                           id="caseNumber" type="number" min="0" pattern="^[0-9]+$" name="caseNumber"
-                           value="${proceeding.caseNumber}">
-                    <div class="invalid-feedback">
-                        Неправильный номер записи
+        <form class="needs-validation" action="${pageContext.request.contextPath}/profile" method="post" name="form"
+              id="formId">
+            <div class="row m-3">
+                <div class="col-md-2 mb-3" hidden>
+                    <label for="id">#</label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               readonly
+
+                               id="id" type="number" name="id"
+                               value="${userProfile.id}">
                     </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit"
-                                formaction="${pageContext.request.contextPath}/manager/get"
-                                formmethod="get" formnovalidate>Поиск
-                        </button>
+                </div>
+                <div class="col-md-1 mb-3">
+                    <label for="idUser">ID</label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               readonly
+                               id="idUser" type="number" name="idUser"
+                               value="${userProfile.idUser}">
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="username">Имя пользователя</label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               id="username" type="text" name="username"
+                               value="${userProfile.username}">
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="lastName">Фамилия</label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               id="lastName" type="text" name="lastName"
+                               value="${userProfile.lastName}">
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="firstName">Имя</label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               id="firstName" type="text" name="firstName"
+                               value="${userProfile.firstName}">
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="surname">Отчество</label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               id="surname" type="text" name="surname"
+                               value="${userProfile.surname}">
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="snils">СНИЛС</label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               id="snils" type="text" name="snils"
+                               value="${userProfile.snils}">
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <label for="initiationDate">Дата регистрации</label>
-                <div class="input-group">
-                    <input class="form-control" id="initiationDate" type="date" name="initiationDate"
-                           value="${proceeding.initiationDate.toLocalDate()}" required>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3" id="articleKoAPdiv" hidden>
-                <label for="articleKoAP">Статья</label>
-                <select class="form-control custom-select d-block"
-                        id="articleKoAP"
-                        name="article">
-                    <option value="${proceeding.article.id}">${proceeding.article.title}</option>
-                    <core:forEach items="${articlesKoAP}" var="article">
-                        <option value="${article.id}">${article.title}</option>
-                    </core:forEach>
-                </select>
-            </div>
-            <div class="col-md-3 mb-3" id="articleUKdiv">
-                <label for="articleUK">Статья</label>
-                <select class="form-control custom-select d-block"
-                        id="articleUK"
-                        name="article">
-                    <option value="${proceeding.article.id}">${proceeding.article.title}</option>
-                    <core:forEach items="${articlesUK}" var="article">
-                        <option value="${article.id}">${article.title}</option>
-                    </core:forEach>
-                </select>
-            </div>
-
-            <div class="col-md-3 mb-3">
-                <label for="code">Кодекс</label>
-                <select class="form-control custom-select d-block"
-                        id="code"
-                        name="code" onchange="articlesByCode()">
-                    <option value="${proceeding.code.id}">${proceeding.code.shortTitle}</option>
-                    <core:forEach items="${code}" var="code">
-                        <option value="${code.id}">${code.shortTitle}</option>
-                    </core:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="row m-3">
-            <div class="col-md-4 mb-3">
-                <label for="post">Должность</label>
-                <select class="form-control custom-select d-block w-100"
-                        id="post"
-                        name="post">
-                    <option value="${proceeding.post.id}">${proceeding.post.title}</option>
-                    <core:forEach items="${post}" var="post">
-                        <option value="${post.id}">${post.title}</option>
-                    </core:forEach>
-                </select>
-            </div>
-            <div class="col-md-4 mb-3">
-            <label for="rank">Звание</label>
-            <select class="form-control custom-select d-block w-100"
-                    id="rank"
-                    name="rank">
-                <option value="${proceeding.rank.id}">${proceeding.rank.title}</option>
-                <core:forEach items="${rank}" var="rank">
-                    <option value="${rank.id}">${rank.title}</option>
-                </core:forEach>
-            </select>
-        </div>
-
-            <div class="col-md-4 mb-3">
-                <label for="fullName">ФИО</label>
-                <input class="form-control"
-                       id="fullName" type="text" name="fullName"
-                       value="${proceeding.fullName}">
-            </div>
-
-        </div>
-        <div class="row m-3">
-            <div class="col-auto btn-group-sm">
-                <input class="btn btn-primary" type="submit" value="Сохранить"
-                       formaction="${pageContext.request.contextPath}/manager/add"/>
-                <input class="btn btn-primary" type="button"
-                       onclick="location.href='${pageContext.request.contextPath}/manager'"
-                       value="Новый"/>
-
-                <%--                <input class="btn btn-primary" type="button"--%>
-                <%--                       onclick="history.back()"--%>
-                <%--                       value="Назад"/>--%>
-            </div>
-
-
-        </div>
-    </form>
-
-</div>
-
-<div class="card mt-3 m-auto col-md-10 order-md-1">
-    <div class="card-header text-center">
-        <div class="row m-auto">
-            <div class="col-1"></div>
-            <div class="col-10"><b>Вещественные доказательства</b></div>
-            <div class="col-1 d-md-flex justify-content-md-end">
-                <input class="btn-sm btn-primary" type="button" value="Добавить"
-                       onclick="location.href='${pageContext.request.contextPath}/evidences?id=${proceeding.id}'">
-            </div>
-        </div>
-        <div class="card-bodm-3 row">
-            <div class="ms-sm-auto overflow-auto">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <core:forEach items="${materialEvidences}" var="evidence">
-                            <tr onclick="location.href='${pageContext.request.contextPath}/evidences/get?id=${evidence.id}'">
-                                <td>${evidence.id}</td>
-                                <td><p>${evidence.proceedings.proceedingsType.title}
-                                    № ${evidence.proceedings.caseNumber}
-                                    от ${evidence.proceedings.initiationDate.toLocaleString().substring(0, 10)}</p>
-                                    <p>${evidence.proceedings.department.shortTitle}</p></td>
-                                <td><p>${evidence.evidenceType.title}</p>
-                                    <p>${evidence.description}</p></td>
-                            </tr>
+            <div class="row m-3">
+                <div class="col-md-3 mb-3">
+                    <label for="rank">Звание</label>
+                    <select class="form-control custom-select d-block w-100"
+                            id="rank"
+                            name="rank">
+                        <option value="${userProfile.rank.id}">${userProfile.rank.title}</option>
+                        <core:forEach items="${rank}" var="rank">
+                            <option value="${rank.id}">${rank.title}</option>
                         </core:forEach>
-                    </table>
+                    </select>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label for="post">Должность</label>
+                    <select class="form-control custom-select d-block w-100"
+                            id="post"
+                            name="post">
+                        <option value="${userProfile.post.id}">${userProfile.post.title}</option>
+                        <core:forEach items="${post}" var="post">
+                            <option value="${post.id}">${post.title}</option>
+                        </core:forEach>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="department">Подразделение</label>
+                    <select class="form-control custom-select d-block w-100"
+                            id="department"
+                            name="department">
+                        <option value="${userProfile.department.id}">${userProfile.department.shortTitle}</option>
+                        <core:forEach items="${departments}" var="department">
+                            <option value="${department.id}">${department.shortTitle}</option>
+                        </core:forEach>
+                    </select>
                 </div>
             </div>
-        </div>
+            <div class="row m-3">
+                <div class="col-md-4 mb-3">
+                    <label for="email">Почта</label>
+                    <input class="form-control"
+                           id="email" type="email" name="email"
+                           value="${userProfile.email}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="contacts">Контакты</label>
+                    <input class="form-control"
+                           id="contacts" type="text" name="contacts"
+                           value="${userProfile.contacts}">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="role">Роль</label>
+                    <select class="form-control custom-select d-block w-100"
+                            id="role"
+                            name="role">
+                        <option value="${user.role.id}">${user.role.name}</option>
+                        <core:forEach items="${roles}" var="role">
+                            <option value="${role.id}">${role.name}</option>
+                        </core:forEach>
+                    </select>
+                </div>
+
+<%--                <div class="col-md-4 mb-3">--%>
+<%--                    <label for="active">Активность</label>--%>
+<%--                    <select class="form-control custom-select d-block w-100"--%>
+<%--                            id="active"--%>
+<%--                            name="active">--%>
+<%--                        <option value="${user.active.id}">${user.active.title}</option>--%>
+<%--                        <core:forEach items="${active}" var="active">--%>
+<%--                            <option value="${active.id}">${active.title}</option>--%>
+<%--                        </core:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
+            </div>
+            <div class="row m-3">
+                <div class="col-auto btn-group-sm">
+                    <input class="btn btn-primary" type="submit" value="Сохранить"
+                           formaction="${pageContext.request.contextPath}/users/save"/>
+                    <input class="btn btn-primary" type="button"
+                           onclick="location.href='${pageContext.request.contextPath}/users/profile'"
+                           value="Очистить"/>
+                    <input class="btn btn-primary" type="button"
+                           onclick="location.href='${pageContext.request.contextPath}/users'"
+                           value="Назад"/>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
+</main>
 
 <script>
-    // let control = document.getElementById('control').value;
-    // if (control !== null && control !== '') {
-    //     document.getElementById('control').style.backgroundColor = 'red';
-    // }
-    // const elements = document.getElementsByClassName("form-control");
-    // for (let i = 0; i < elements.length; i++) {
-    //     if (elements[i].nodeName === "INPUT") {
-    //         elements[i].setAttribute("title", elements[i].value);
-    //     } else if (elements[i].nodeName === "SELECT") {
-    //         elements[i].setAttribute("title", elements[i].selectedOptions[0].text);
-    //     }
-    // }
-    // document.getElementById("foundDate").setAttribute('max', new Date().toISOString().substring(0, 10));
-    //
-    // function articlesByCode() {
-    //     if (document.getElementById("code").options.selectedIndex === 1) {
-    //         document.getElementById("articleKoAPdiv").hidden = false;
-    //         document.getElementById("articleUKdiv").hidden = true;
-    //     } else if (document.getElementById("code").options.selectedIndex === 2) {
-    //         document.getElementById("articleUKdiv").hidden = false;
-    //         document.getElementById("articleKoAPdiv").hidden = true;
-    //     }
-    // }
-    ${result}
+    if ('${resultMessage}' !== '') {
+    alert('${resultMessage}');}
 </script>
 <jsp:include page="../template/_footer.jsp"/>
 </body>
