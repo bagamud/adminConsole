@@ -34,8 +34,34 @@ public class UsersController {
     }
 
     @GetMapping()
-    public String users(Model model) {
+    public String users(@RequestParam(defaultValue = "") String filter, Model model) {
         serviceDictionaries(model);
+        if (!filter.equals("")) {
+            String[] filterParam = filter.split("\\.");
+            String type = filterParam[0];
+            String value = filterParam[1];
+            switch (type) {
+                case "username":
+                    model.addAttribute("usersList", usersRepository.findAllByUsername(value));
+                    break;
+                case "lastName":
+                    model.addAttribute("usersList", usersRepository.findAllByLastName(value));
+                    break;
+                case "post":
+                    model.addAttribute("usersList", usersRepository.findAllByPost_Id(Integer.parseInt(value)));
+                    break;
+                case "department":
+                    model.addAttribute("usersList", usersRepository.findAllByDepartment_Id(Integer.parseInt(value)));
+                    break;
+                case "active":
+                    model.addAttribute("usersList", usersRepository.findAllByActive(Boolean.parseBoolean(value)));
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            model.addAttribute("usersList", usersRepository.findAllOrderById());
+        }
         return "users";
     }
 
@@ -61,9 +87,22 @@ public class UsersController {
     public String addUser(Users userProfile, BindingResult bindingResult, Model model) {
         serviceDictionaries(model);
         try {
-            if (userProfile.getId() == 0 || (userProfile.getId() == 0 && !userProfile.getPasswd().equals(""))) {
-                PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-                userProfile.setPasswd(passwordEncoder.encode(userProfile.getPasswd()));
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            if (userProfile.getId() == 0) {
+
+                if (userProfile.getIdUser() == 0) {
+                    userProfile.setIdUser(Math.abs(userProfile.getUsername().hashCode()));
+                }
+                if (userProfile.getPasswd() != null) {
+                    userProfile.setPasswd(passwordEncoder.encode(userProfile.getPasswd()));
+                }
+            } else {
+                if (userProfile.getPasswd() == null || userProfile.getPasswd().equals("")) {
+
+                    userProfile.setPasswd(usersRepository.findByUsername(userProfile.getUsername()).getPasswd());
+                } else {
+                    userProfile.setPasswd(passwordEncoder.encode(userProfile.getPasswd()));
+                }
             }
             model.addAttribute("userProfile", usersRepository.save(userProfile));
             model.addAttribute("resultMessage", "Пользователь сохранен");
@@ -83,6 +122,5 @@ public class UsersController {
         model.addAttribute("services", servicesRepository.findAll());
         model.addAttribute("rank", rankRepository.findAll());
         model.addAttribute("roles", rolesRepository.findAll());
-        model.addAttribute("usersList", usersRepository.findAll());
     }
 }

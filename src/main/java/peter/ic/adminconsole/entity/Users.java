@@ -6,12 +6,13 @@ import javax.persistence.*;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int idUser;
     private String snils;
 
     private String username;
+
     private String passwd;
 
     private String surname;

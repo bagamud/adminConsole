@@ -158,27 +158,44 @@
                 </div>
             </div>
             <div class="row m-3">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="email">Почта</label>
                     <input class="form-control"
                            id="email" type="email" name="email"
                            value="${userProfile.email}">
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="contacts">Контакты</label>
                     <input class="form-control"
                            id="contacts" type="text" name="contacts"
                            value="${userProfile.contacts}">
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-2 mb-3">
+                <label for="passwd">Задать пароль</label>
+                <input class="form-control custom-select d-block w-100" type="text"
+                        id="passwd"
+                        name="passwd"/>
+            </div>
+
+                <div class="col-md-2 mb-3">
                     <label for="role">Роль</label>
                     <select class="form-control custom-select d-block w-100"
                             id="role"
                             name="role">
-                        <option value="${user.role.id}">${user.role.name}</option>
+                        <option value="${userProfile.role.id}">${userProfile.role.name}</option>
                         <core:forEach items="${roles}" var="role">
                             <option value="${role.id}">${role.name}</option>
                         </core:forEach>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="active">Активность</label>
+                    <select class="form-control custom-select d-block w-100"
+                            id="active"
+                            name="active">
+                        <option value="${userProfile.active}">${userProfile.active}</option>
+                        <option value="true">true</option>
+                        <option value="false">false</option>
                     </select>
                 </div>
 
@@ -207,7 +224,8 @@
                 </div>
             </div>
         </form>
-    </div>
+    </div>    <div class="b-example-divider"></div>
+
 </main>
 
 <script>

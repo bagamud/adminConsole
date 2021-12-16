@@ -46,14 +46,26 @@
                 <strong>${user.lastName} ${user.firstName.substring(0, 1)}. ${user.surname.substring(0, 1)}.</strong>
             </div>
             <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-sm btn-outline-light" onclick="location.href='${pageContext.request.contextPath}/logout'">Выход</button>
+                <button class="btn btn-sm btn-outline-light"
+                        onclick="location.href='${pageContext.request.contextPath}/logout'">Выход
+                </button>
             </div>
         </div>
     </div>
     <div class="b-example-divider"></div>
-    <div class="d-flex flex-column m-3 flex-shrink-0 p-3">
-        <div class="d-flex ms-sm-auto overflow-auto">
-            <table class="table table-hover table-responsive-sm">
+    <div class="d-flex flex-column m-3 p-3">
+        <div>
+            <div class="text-center h2">
+                Список зарегистрированных пользователей
+
+            </div>
+            <input type="button" class="btn btn-primary" value="Добавить"
+                   onclick="location.href='${pageContext.request.contextPath}/users/profile'" aria-current="page">
+
+
+        </div>
+        <div class="col-auto">
+            <table class="table table-hover">
                 <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
@@ -67,6 +79,60 @@
                     <th scope="col">Контакты</th>
                     <th scope="col">Активен</th>
                 </tr>
+                <form action="${pageContext.request.contextPath}/users" method="post" name="form" id="formId">
+                    <tr class="text-center">
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">
+                            <div class="input-group">
+                                <input class="form-control-sm"
+                                       id="username" type="text" name="username"
+                                       onchange="location.href='${pageContext.request.contextPath}/users?filter=username.' + this.value">
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="input-group">
+                                <input class="form-control-sm"
+                                       id="lastName" type="text" name="lastName"
+                                       onchange="location.href='${pageContext.request.contextPath}/users?filter=lastName.' + this.value">
+                            </div>
+                        </th>
+                        <th scope="col"></th>
+                        <th scope="col">
+                            <select class="form-control-sm custom-select d-block w-100"
+                                    id="post"
+                                    name="post"
+                                    onchange="location.href='${pageContext.request.contextPath}/users?filter=post.' + this.selectedIndex">
+                                <option value=""></option>
+                                <core:forEach items="${post}" var="post">
+                                <option value="${post.id}">${post.title}</option>
+                                </core:forEach>
+                        </th>
+                        <th scope="col">
+                            <select class="form-control-sm custom-select d-block w-100"
+                                    id="department"
+                                    name="department"
+                                    onchange="location.href='${pageContext.request.contextPath}/users?filter=department.' + this.selectedIndex">
+                                <option value=""></option>
+                                <core:forEach items="${departments}" var="department">
+                                    <option value="${department.id}">${department.shortTitle}</option>
+                                </core:forEach>
+                            </select>
+                        </th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">
+                            <select class="form-control-sm custom-select d-block w-100"
+                                    id="active"
+                                    name="active"
+                                    onchange="location.href='${pageContext.request.contextPath}/users?filter=active.' + this.value">
+                                <option value=""></option>
+                                <option value="true">true</option>
+                                <option value="false">false</option>
+                            </select>
+                        </th>
+                    </tr>
+                </form>
                 </thead>
                 <tbody>
                 <core:forEach items="${usersList}" var="user">
@@ -87,6 +153,9 @@
             </table>
         </div>
     </div>
+    </div>
+    <div class="b-example-divider"></div>
+
 </main>
 <jsp:include page="../template/_footer.jsp"/>
 </body>

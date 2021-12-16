@@ -41,8 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(
-                        "/users**", "/profile", "/users/**", "/profile/**").authenticated()
+                .antMatchers("/users**", "/profile", "/users/**", "/profile/**")./*hasRole("ADMIN").anyRequest().*/authenticated()
                 .and()
                 .httpBasic()
                 .realmName("Административная консоль")
