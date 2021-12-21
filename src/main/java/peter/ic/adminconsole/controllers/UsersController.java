@@ -51,7 +51,7 @@ public class UsersController {
                     model.addAttribute("usersList", usersRepository.findAllByPost_Id(Integer.parseInt(value)));
                     break;
                 case "department":
-                    model.addAttribute("usersList", usersRepository.findAllByDepartment_Id(Integer.parseInt(value)));
+                    model.addAttribute("usersList", usersRepository.findAllByDepartment_Code(Integer.parseInt(value)));
                     break;
                 case "active":
                     model.addAttribute("usersList", usersRepository.findAllByActive(Boolean.parseBoolean(value)));
@@ -60,7 +60,7 @@ public class UsersController {
                     break;
             }
         } else {
-            model.addAttribute("usersList", usersRepository.findAllOrderById());
+            model.addAttribute("usersList", usersRepository.findAll());
         }
         return "users";
     }

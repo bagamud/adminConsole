@@ -115,7 +115,7 @@
                                     onchange="location.href='${pageContext.request.contextPath}/users?filter=department.' + this.selectedIndex">
                                 <option value=""></option>
                                 <core:forEach items="${departments}" var="department">
-                                    <option value="${department.id}">${department.shortTitle}</option>
+                                    <option value="${department.code}">${department.shortTitle}</option>
                                 </core:forEach>
                             </select>
                         </th>

@@ -150,9 +150,9 @@
                     <select class="form-control custom-select d-block w-100"
                             id="department"
                             name="department">
-                        <option value="${userProfile.department.id}">${userProfile.department.shortTitle}</option>
+                        <option value="${userProfile.department.code}">${userProfile.department.shortTitle}</option>
                         <core:forEach items="${departments}" var="department">
-                            <option value="${department.id}">${department.shortTitle}</option>
+                            <option value="${department.code}">${department.shortTitle}</option>
                         </core:forEach>
                     </select>
                 </div>

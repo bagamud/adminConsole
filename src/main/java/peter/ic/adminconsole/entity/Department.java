@@ -8,23 +8,15 @@ import javax.persistence.ManyToOne;
 public class Department {
 
     @Id
-    private int id;
+    private int code;
 
     @ManyToOne(targetEntity = CountryRegion.class)
     private CountryRegion countryRegion;
 
     private String title;
     private String shortTitle;
-    private int code;
     private int parentCode;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private boolean participant;
 
     public CountryRegion getCountryRegion() {
         return countryRegion;
@@ -66,5 +58,11 @@ public class Department {
         this.parentCode = parentCode;
     }
 
+    public boolean isParticipant() {
+        return participant;
+    }
 
+    public void setParticipant(boolean participant) {
+        this.participant = participant;
+    }
 }
