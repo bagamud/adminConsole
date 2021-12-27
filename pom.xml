@@ -9,6 +9,15 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>peter.ic</groupId>
+    <developers>
+        <developer>
+            <name>Ponkratov K.P.</name>
+            <email>ponkratovk@gmail.com</email>
+            <roles>
+                <role>author</role>
+            </roles>
+        </developer>
+    </developers>
     <artifactId>adminConsole</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -67,7 +76,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <finalName>adminconsole</finalName>
         <plugins>
@@ -77,5 +85,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

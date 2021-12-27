@@ -6,8 +6,8 @@ import javax.persistence.Id;
 @Entity
 public class Post {
 
-    @Id
     private int id;
+    @Id
     private String title;
 
     public int getId() {

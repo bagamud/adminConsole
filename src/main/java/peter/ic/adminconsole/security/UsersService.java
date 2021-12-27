@@ -58,6 +58,9 @@ public class UsersService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Пользователь не найден");
         }
+        if (!user.isActive() || !user.getDepartment().isActive()) {
+            throw new UsernameNotFoundException("Пользователь заблокирован");
+        }
 
         /*
         Создание единичного массива из значения о роли пользователя

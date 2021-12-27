@@ -6,8 +6,8 @@ import javax.persistence.Id;
 @Entity
 public class Rank {
 
-    @Id
     private int id;
+    @Id
     private String title;
 
     public int getId() {

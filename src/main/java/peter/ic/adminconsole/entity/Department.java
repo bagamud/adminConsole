@@ -1,5 +1,6 @@
 package peter.ic.adminconsole.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,6 +18,9 @@ public class Department {
     private String shortTitle;
     private int parentCode;
     private boolean participant;
+
+    @Column(nullable = true)
+    private boolean active;
 
     public CountryRegion getCountryRegion() {
         return countryRegion;
@@ -64,5 +68,13 @@ public class Department {
 
     public void setParticipant(boolean participant) {
         this.participant = participant;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

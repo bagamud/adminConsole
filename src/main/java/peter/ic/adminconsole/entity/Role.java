@@ -8,9 +8,9 @@ import javax.persistence.Id;
 @Entity
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private int id;
+    @Id
     private String name;
     private boolean reedWrite;
 

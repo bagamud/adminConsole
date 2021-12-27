@@ -130,7 +130,7 @@
                             name="rank">
                         <option value="${userProfile.rank.id}">${userProfile.rank.title}</option>
                         <core:forEach items="${rank}" var="rank">
-                            <option value="${rank.id}">${rank.title}</option>
+                            <option value="${rank.title}">${rank.title}</option>
                         </core:forEach>
                     </select>
                 </div>
@@ -141,7 +141,7 @@
                             name="post">
                         <option value="${userProfile.post.id}">${userProfile.post.title}</option>
                         <core:forEach items="${post}" var="post">
-                            <option value="${post.id}">${post.title}</option>
+                            <option value="${post.title}">${post.title}</option>
                         </core:forEach>
                     </select>
                 </div>
@@ -184,7 +184,7 @@
                             name="role">
                         <option value="${userProfile.role.id}">${userProfile.role.name}</option>
                         <core:forEach items="${roles}" var="role">
-                            <option value="${role.id}">${role.name}</option>
+                            <option value="${role.title}">${role.name}</option>
                         </core:forEach>
                     </select>
                 </div>
