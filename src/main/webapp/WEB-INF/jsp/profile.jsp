@@ -72,7 +72,7 @@
                                value="${userProfile.id}">
                     </div>
                 </div>
-                <div class="col-md-1 mb-3">
+                <div class="col-md-2 mb-3">
                     <label for="idUser">ID</label>
                     <div class="input-group">
                         <input class="form-control"
@@ -81,7 +81,7 @@
                                value="${userProfile.idUser}">
                     </div>
                 </div>
-                <div class="col-md-2 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="username">Имя пользователя</label>
                     <div class="input-group">
                         <input class="form-control"
@@ -113,14 +113,6 @@
                                value="${userProfile.surname}">
                     </div>
                 </div>
-                <div class="col-md-2 mb-3">
-                    <label for="snils">СНИЛС</label>
-                    <div class="input-group">
-                        <input class="form-control"
-                               id="snils" type="text" name="snils"
-                               value="${userProfile.snils}">
-                    </div>
-                </div>
             </div>
             <div class="row m-3">
                 <div class="col-md-3 mb-3">
@@ -130,7 +122,7 @@
                             name="rank">
                         <option value="${userProfile.rank.id}">${userProfile.rank.title}</option>
                         <core:forEach items="${rank}" var="rank">
-                            <option value="${rank.title}">${rank.title}</option>
+                            <option value="${rank.id}">${rank.title}</option>
                         </core:forEach>
                     </select>
                 </div>
@@ -141,7 +133,7 @@
                             name="post">
                         <option value="${userProfile.post.id}">${userProfile.post.title}</option>
                         <core:forEach items="${post}" var="post">
-                            <option value="${post.title}">${post.title}</option>
+                            <option value="${post.id}">${post.title}</option>
                         </core:forEach>
                     </select>
                 </div>
@@ -159,6 +151,14 @@
             </div>
             <div class="row m-3">
                 <div class="col-md-3 mb-3">
+                    <label for="snils">СНИЛС</label>
+                    <div class="input-group">
+                        <input class="form-control"
+                               id="snils" type="text" name="snils"
+                               value="${userProfile.snils}">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
                     <label for="email">Почта</label>
                     <input class="form-control"
                            id="email" type="email" name="email"
@@ -170,12 +170,31 @@
                            id="contacts" type="text" name="contacts"
                            value="${userProfile.contacts}">
                 </div>
-                <div class="col-md-2 mb-3">
-                <label for="passwd">Задать пароль</label>
-                <input class="form-control custom-select d-block w-100" type="text"
-                        id="passwd"
-                        name="passwd"/>
             </div>
+            <div class="row m-3">
+                <div class="col-md-6 mb-3">
+                    <label for="passwd">Задать пароль</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text"
+                               id="passwd"
+                               name="passwd"/>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"
+                                    onclick="generatePassword()" formnovalidate>Cгенерировать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="temporaryPasswd">Временный</label>
+                    <select class="form-control custom-select d-block w-100"
+                            id="temporaryPasswd"
+                            name="temporaryPasswd">
+                        <option value="${userProfile.temporaryPasswd}">${userProfile.temporaryPasswd}</option>
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </div>
 
                 <div class="col-md-2 mb-3">
                     <label for="role">Роль</label>
@@ -184,7 +203,7 @@
                             name="role">
                         <option value="${userProfile.role.id}">${userProfile.role.name}</option>
                         <core:forEach items="${roles}" var="role">
-                            <option value="${role.title}">${role.name}</option>
+                            <option value="${role.id}">${role.name}</option>
                         </core:forEach>
                     </select>
                 </div>
@@ -199,17 +218,17 @@
                     </select>
                 </div>
 
-<%--                <div class="col-md-4 mb-3">--%>
-<%--                    <label for="active">Активность</label>--%>
-<%--                    <select class="form-control custom-select d-block w-100"--%>
-<%--                            id="active"--%>
-<%--                            name="active">--%>
-<%--                        <option value="${user.active.id}">${user.active.title}</option>--%>
-<%--                        <core:forEach items="${active}" var="active">--%>
-<%--                            <option value="${active.id}">${active.title}</option>--%>
-<%--                        </core:forEach>--%>
-<%--                    </select>--%>
-<%--                </div>--%>
+                <%--                <div class="col-md-4 mb-3">--%>
+                <%--                    <label for="active">Активность</label>--%>
+                <%--                    <select class="form-control custom-select d-block w-100"--%>
+                <%--                            id="active"--%>
+                <%--                            name="active">--%>
+                <%--                        <option value="${user.active.id}">${user.active.title}</option>--%>
+                <%--                        <core:forEach items="${active}" var="active">--%>
+                <%--                            <option value="${active.id}">${active.title}</option>--%>
+                <%--                        </core:forEach>--%>
+                <%--                    </select>--%>
+                <%--                </div>--%>
             </div>
             <div class="row m-3">
                 <div class="col-auto btn-group-sm">
@@ -224,13 +243,24 @@
                 </div>
             </div>
         </form>
-    </div>    <div class="b-example-divider"></div>
+    </div>
+    <div class="b-example-divider"></div>
 
 </main>
 
 <script>
+    function generatePassword() {
+        var length = 8, charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", retVal = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            retVal += charset.charAt(Math.floor(Math.random() * n));
+        }
+        document.getElementById('passwd').value = retVal;
+        document.getElementById('temporaryPasswd').value = true;
+    }
+
     if ('${resultMessage}' !== '') {
-    alert('${resultMessage}');}
+        alert('${resultMessage}');
+    }
 </script>
 <jsp:include page="../template/_footer.jsp"/>
 </body>

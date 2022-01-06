@@ -6,14 +6,15 @@ import javax.persistence.*;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int idUser;
     private String snils;
 
+    @Column(unique = true)
     private String username;
-
     private String passwd;
+    private boolean temporaryPasswd;
 
     private String surname;
     private String firstName;
@@ -25,17 +26,20 @@ public class Users {
     @ManyToOne(targetEntity = Post.class)
     private Post post;
 
+    @ManyToOne(targetEntity = Services.class)
+    private Services services;
+
+
     @ManyToOne(targetEntity = Rank.class)
     private Rank rank;
 
     private String contacts;
 
     private String email;
+    private boolean active;
 
     @ManyToOne(targetEntity = Role.class)
     private Role role;
-
-    private boolean active;
 
     public int getId() {
         return id;
@@ -77,6 +81,13 @@ public class Users {
         this.passwd = passwd;
     }
 
+    public boolean isTemporaryPasswd() {
+        return temporaryPasswd;
+    }
+
+    public void setTemporaryPasswd(boolean temporaryPasswd) {
+        this.temporaryPasswd = temporaryPasswd;
+    }
 
     public String getSurname() {
         return surname;
@@ -126,6 +137,14 @@ public class Users {
         this.contacts = contacts;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public Post getPost() {
         return post;
     }
@@ -133,21 +152,19 @@ public class Users {
     public void setPost(Post post) {
         this.post = post;
     }
+    public Services getServices() {
+        return services;
+    }
 
+    public void setServices(Services services) {
+        this.services = services;
+    }
     public Rank getRank() {
         return rank;
     }
 
     public void setRank(Rank rank) {
         this.rank = rank;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public boolean isActive() {
