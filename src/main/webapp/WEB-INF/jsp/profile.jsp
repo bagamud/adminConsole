@@ -62,17 +62,7 @@
         <form class="needs-validation" action="${pageContext.request.contextPath}/profile" method="post" name="form"
               id="formId">
             <div class="row m-3">
-                <div class="col-md-2 mb-3" hidden>
-                    <label for="id">#</label>
-                    <div class="input-group">
-                        <input class="form-control"
-                               readonly
-
-                               id="id" type="number" name="id"
-                               value="${userProfile.id}">
-                    </div>
-                </div>
-                <div class="col-md-1 mb-3">
+                 <div class="col-md-1 mb-3">
                     <label for="idUser">ID</label>
                     <div class="input-group">
                         <input class="form-control"
@@ -172,9 +162,13 @@
                 </div>
                 <div class="col-md-2 mb-3">
                 <label for="passwd">Задать пароль</label>
-                <input class="form-control custom-select d-block w-100" type="text"
+                <div class="input-group">
+                    <input class="form-control custom-select d-block w-100" type="text"
                         id="passwd"
                         name="passwd"/>
+                <input class="btn" type="button" onclick="generatePassword()">
+
+                </div>
             </div>
 
                 <div class="col-md-2 mb-3">
@@ -229,6 +223,14 @@
 </main>
 
 <script>
+    function generatePassword() {
+        var length = 8,
+            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+            retVal = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            retVal += charset.charAt(Math.floor(Math.random() * n));
+        }    return retVal;
+    }
     if ('${resultMessage}' !== '') {
     alert('${resultMessage}');}
 </script>

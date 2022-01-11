@@ -1,5 +1,8 @@
 package peter.ic.adminconsole.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +20,10 @@ import peter.ic.adminconsole.repository.*;
 @Controller
 @RequestMapping("/users")
 public class UsersController {
+
+    @Autowired
+    JavaMailSender javaMailSender;
+
     final DepartmentsRepository departmentsRepository;
     final PostRepository postRepository;
     final ServicesRepository servicesRepository;
@@ -123,4 +130,23 @@ public class UsersController {
         model.addAttribute("rank", rankRepository.findAll());
         model.addAttribute("roles", rolesRepository.findAll());
     }
+
+    private void sentMessage(Users user) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(user.getEmail());
+        simpleMailMessage.setSubject("Уведомление администратора");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Уважаемый(ая) ")
+                .append(user.getLastName()).append(" ").append(user.getFirstName()).append(" ").append(user.getSurname()).append("!")
+                .append("\n")
+                .append("Вам сформирован временный пароль к порталу Вещественные доказательства:")
+                .append("\n")
+                .append("пароль")
+                .append("\n\n")
+                .append("После авторизации потребуется сменить пароль.")
+                .append("Переход по ссылке: http://extr.ic.peter/bvd/login");
+        simpleMailMessage.setText(sb.toString());
+        javaMailSender.send(simpleMailMessage);
+    }
+
 }
