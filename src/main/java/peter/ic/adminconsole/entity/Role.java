@@ -9,8 +9,8 @@ import javax.persistence.Id;
 public class Role {
 
 
-    private int id;
     @Id
+    private int id;
     private String name;
     private boolean reedWrite;
 
