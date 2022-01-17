@@ -52,19 +52,15 @@
         <div>
             <div class="text-center h2">
                 Список зарегистрированных пользователей
-
             </div>
             <input type="button" class="btn btn-primary" value="Добавить"
                    onclick="location.href='${pageContext.request.contextPath}/users/profile'" aria-current="page">
-
-
         </div>
-        <div class="col-auto">
-            <table class="table table-hover">
+        <div class="overflow-scroll" style="height: 89vh">
+            <table class="table table-hover overflow-scroll">
                 <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
-                    <th scope="col">ID</th>
                     <th scope="col">Имя пользователя</th>
                     <th scope="col">ФИО</th>
                     <th scope="col">СНИЛС</th>
@@ -76,7 +72,6 @@
                 </tr>
                 <form action="${pageContext.request.contextPath}/users" method="post" name="form" id="formId">
                     <tr class="text-center">
-                        <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col">
                             <div class="input-group">
@@ -133,7 +128,6 @@
                 <core:forEach items="${usersList}" var="user">
                     <tr onclick="location.href='${pageContext.request.contextPath}/users/get?username=${user.username}'">
                         <td>${user.id}</td>
-                        <td>${user.idUser}</td>
                         <td>${user.username}</td>
                         <td>${user.lastName} ${user.firstName} ${user.surname}</td>
                         <td>${user.snils}</td>
@@ -149,7 +143,6 @@
         </div>
     </div>
     </div>
-    <div class="b-example-divider"></div>
 
 </main>
 <jsp:include page="../template/_footer.jsp"/>

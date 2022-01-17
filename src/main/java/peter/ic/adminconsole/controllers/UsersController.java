@@ -95,35 +95,27 @@ public class UsersController {
 
 
     @PostMapping("/save")
-    public String addUser(Users userProfile, BindingResult bindingResult, Model model) {
+    public String addUser(Users userProfile, Boolean notification, BindingResult bindingResult, Model model) {
         serviceDictionaries(model);
         try {
-            boolean needToSend = false;
             String passwd = userProfile.getPasswd();
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             if (userProfile.getId() == 0) {
-                if (userProfile.getIdUser() == 0) {
-                    userProfile.setIdUser(Math.abs(userProfile.getUsername().hashCode()));
-                }
                 if (userProfile.getPasswd() != null) {
                     userProfile.setPasswd(passwordEncoder.encode(userProfile.getPasswd()));
-                    if (userProfile.isTemporaryPasswd()) {
-                        needToSend = true;
-                    }
                 }
             } else {
                 if (userProfile.getPasswd() == null || userProfile.getPasswd().equals("")) {
                     userProfile.setPasswd(usersRepository.findByUsername(userProfile.getUsername()).getPasswd());
                 } else {
                     userProfile.setPasswd(passwordEncoder.encode(userProfile.getPasswd()));
-                    if (userProfile.isTemporaryPasswd()) {
-                        needToSend = true;
-                    }
                 }
             }
             model.addAttribute("userProfile", usersRepository.save(userProfile));
             model.addAttribute("resultMessage", "Пользователь сохранен");
-            if (needToSend) sendNewPassword(userProfile, passwd);
+            if (notification != null && notification) {
+                sendNotification(userProfile, passwd);
+            }
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("bindingResult", bindingResult);
@@ -131,7 +123,7 @@ public class UsersController {
         return "profile";
     }
 
-    public void sendNewPassword(Users user, String passwd) {
+    public void sendNotification(Users user, String passwd) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(user.getEmail());
         simpleMailMessage.setSubject("Уведомление администратора");

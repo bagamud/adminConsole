@@ -8,7 +8,6 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int idUser;
     private String snils;
 
     @Column(unique = true)
@@ -47,14 +46,6 @@ public class Users {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
     }
 
     public String getSnils() {

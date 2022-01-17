@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="b-example-divider"></div>
-    <div class=" d-flex flex-column m-3 p-3">
+    <div class="text-center d-flex flex-column m-3 p-3">
         <div class="text-center h2">
             Профиль пользователя
         </div>
@@ -67,15 +67,7 @@
                                value="${userProfile.id}">
                     </div>
                 </div>
-                <div class="col-md-2 mb-3">
-                    <label for="idUser">ID</label>
-                    <div class="input-group">
-                        <input class="form-control"
-                               readonly
-                               id="idUser" type="number" name="idUser"
-                               value="${userProfile.idUser}">
-                    </div>
-                </div>
+
                 <div class="col-md-3 mb-3">
                     <label for="username">Имя пользователя</label>
                     <div class="input-group">
@@ -92,7 +84,7 @@
                                value="${userProfile.lastName}">
                     </div>
                 </div>
-                <div class="col-md-2 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="firstName">Имя</label>
                     <div class="input-group">
                         <input class="form-control"
@@ -100,7 +92,7 @@
                                value="${userProfile.firstName}">
                     </div>
                 </div>
-                <div class="col-md-2 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="surname">Отчество</label>
                     <div class="input-group">
                         <input class="form-control"
@@ -236,10 +228,14 @@
                            onclick="location.href='${pageContext.request.contextPath}/users'"
                            value="Назад"/>
                 </div>
+                <div class="col-auto form-check form-switch">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="notification">Отправить уведомление пользователю
+                    </label>
+                </div>
             </div>
         </form>
     </div>
-    <div class="b-example-divider"></div>
 
 </main>
 
