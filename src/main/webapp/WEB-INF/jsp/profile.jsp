@@ -62,7 +62,7 @@
                     <div class="input-group">
                         <input class="form-control"
                                readonly
-
+                               min="0"
                                id="id" type="number" name="id"
                                value="${userProfile.id}">
                     </div>
