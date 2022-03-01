@@ -4,10 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Post {
+public class Citizenship {
 
     @Id
     private int id;
+
+    //    @Column(columnDefinition = "VARCHAR")
     private String title;
 
     public int getId() {

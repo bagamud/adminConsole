@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Rank {
+public class Status {
 
     @Id
     private int id;
@@ -12,7 +12,7 @@ public class Rank {
     //    @Column(columnDefinition = "VARCHAR")
     private String title;
 
-    private int tariff;
+    private boolean isServing;
 
     public int getId() {
         return id;
@@ -30,11 +30,11 @@ public class Rank {
         this.title = title;
     }
 
-    public int getTariff() {
-        return tariff;
+    public boolean isServing() {
+        return isServing;
     }
 
-    public void setTariff(int tariff) {
-        this.tariff = tariff;
+    public void setServing(boolean serving) {
+        isServing = serving;
     }
 }

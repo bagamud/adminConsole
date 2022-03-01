@@ -66,7 +66,7 @@ public class UsersService implements UserDetailsService {
         Создание единичного массива из значения о роли пользователя
          */
 
-        List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName()));
+        List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()));
         return new User(user.getUsername(), user.getPasswd(), authorities);
     }
 }

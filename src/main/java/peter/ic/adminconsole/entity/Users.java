@@ -1,43 +1,44 @@
 package peter.ic.adminconsole.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String snils;
 
-    @Column(unique = true)
+    //    @Column(unique = true, columnDefinition = "VARCHAR")
     private String username;
-    private String passwd;
-    private boolean temporaryPasswd;
 
-    private String surname;
-    private String firstName;
+    //    @Column(columnDefinition = "VARCHAR")
+    private String passwd;
+
+    //    @Column(columnDefinition = "VARCHAR")
     private String lastName;
+
+    //    @Column(columnDefinition = "VARCHAR")
+    private String firstName;
+
+    //    @Column(columnDefinition = "VARCHAR")
+    private String middleName;
 
     @ManyToOne(targetEntity = Department.class)
     private Department department;
 
-    @ManyToOne(targetEntity = Post.class)
-    private Post post;
+    @ManyToOne(targetEntity = Position.class)
+    private Position position;
 
-    @ManyToOne(targetEntity = Services.class)
-    private Services services;
-
-
-    @ManyToOne(targetEntity = Rank.class)
-    private Rank rank;
-
+    //    @Column(columnDefinition = "VARCHAR")
     private String contacts;
 
+    //    @Column(columnDefinition = "VARCHAR")
     private String email;
     private boolean active;
 
-    @ManyToOne(targetEntity = Role.class)
     private Role role;
 
     public int getId() {
@@ -46,14 +47,6 @@ public class Users {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getSnils() {
-        return snils;
-    }
-
-    public void setSnils(String snils) {
-        this.snils = snils;
     }
 
     public String getUsername() {
@@ -72,20 +65,13 @@ public class Users {
         this.passwd = passwd;
     }
 
-    public boolean isTemporaryPasswd() {
-        return temporaryPasswd;
+
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setTemporaryPasswd(boolean temporaryPasswd) {
-        this.temporaryPasswd = temporaryPasswd;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getFirstName() {
@@ -136,26 +122,12 @@ public class Users {
         this.role = role;
     }
 
-    public Post getPost() {
-        return post;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
-    }
-    public Services getServices() {
-        return services;
-    }
-
-    public void setServices(Services services) {
-        this.services = services;
-    }
-    public Rank getRank() {
-        return rank;
-    }
-
-    public void setRank(Rank rank) {
-        this.rank = rank;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public boolean isActive() {

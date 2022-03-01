@@ -3,9 +3,9 @@
 <script src="${pageContext.request.contextPath}/js/sidebars.js"></script>
 <%--<script> alert("ALERT!!! Use Mozilla Firefox or Google Chrome")</script>--%>
 <script>let msg = '${errors}';
-    if(msg != '') {
-        alert('${errors}');
-    }</script>
+if (msg != '') {
+    alert('${errors}');
+}</script>
 <%--<div class="text-center fixed-bottom">--%>
 <%--    <p class=""><b>${footer}</b></p>--%>
 <%--</div>--%>

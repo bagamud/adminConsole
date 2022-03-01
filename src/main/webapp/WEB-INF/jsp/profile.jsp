@@ -230,7 +230,8 @@
                 </div>
                 <div class="col-auto form-check form-switch">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="notification">Отправить уведомление пользователю
+                        <input type="checkbox" class="form-check-input" name="notification">Отправить уведомление
+                        пользователю
                     </label>
                 </div>
             </div>

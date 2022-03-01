@@ -9,42 +9,22 @@ import javax.persistence.ManyToOne;
 public class Department {
 
     @Id
-    private int code;
+    int code;
+    int parentCode;
 
-    @ManyToOne(targetEntity = CountryRegion.class)
-    private CountryRegion countryRegion;
+    //    @Column(columnDefinition = "VARCHAR")
+    String name;
 
-    private String title;
-    private String shortTitle;
-    private int parentCode;
-    private boolean participant;
+    //    @Column(columnDefinition = "VARCHAR")
+    String fullName;
 
+    //    @Column(columnDefinition = "VARCHAR")
+    String shortName;
+    int regionCode;
+    @ManyToOne
+    private Anchor anchor;
     @Column(nullable = true)
     private boolean active;
-
-    public CountryRegion getCountryRegion() {
-        return countryRegion;
-    }
-
-    public void setCountryRegion(CountryRegion countryRegion) {
-        this.countryRegion = countryRegion;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getShortTitle() {
-        return shortTitle;
-    }
-
-    public void setShortTitle(String shortTitle) {
-        this.shortTitle = shortTitle;
-    }
 
     public int getCode() {
         return code;
@@ -62,12 +42,44 @@ public class Department {
         this.parentCode = parentCode;
     }
 
-    public boolean isParticipant() {
-        return participant;
+    public String getName() {
+        return name;
     }
 
-    public void setParticipant(boolean participant) {
-        this.participant = participant;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public int getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(int regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public Anchor getAnchor() {
+        return anchor;
+    }
+
+    public void setAnchor(Anchor anchor) {
+        this.anchor = anchor;
     }
 
     public boolean isActive() {
