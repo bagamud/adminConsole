@@ -16,15 +16,13 @@ public class DictionariesController {
     final PositionRepository positionRepository;
     final ServicesRepository servicesRepository;
     final RankRepository rankRepository;
-    final RolesRepository rolesRepository;
     final UsersRepository usersRepository;
 
-    public DictionariesController(DepartmentRepository departmentRepository, PositionRepository positionRepository, ServicesRepository servicesRepository, RankRepository rankRepository, RolesRepository rolesRepository, UsersRepository usersRepository) {
+    public DictionariesController(DepartmentRepository departmentRepository, PositionRepository positionRepository, ServicesRepository servicesRepository, RankRepository rankRepository, UsersRepository usersRepository) {
         this.departmentRepository = departmentRepository;
         this.positionRepository = positionRepository;
         this.servicesRepository = servicesRepository;
         this.rankRepository = rankRepository;
-        this.rolesRepository = rolesRepository;
         this.usersRepository = usersRepository;
     }
 
@@ -38,7 +36,6 @@ public class DictionariesController {
         model.addAttribute("post", positionRepository.findAll());
         model.addAttribute("services", servicesRepository.findAll());
         model.addAttribute("rank", rankRepository.findAll());
-        model.addAttribute("roles", rolesRepository.findAll());
         model.addAttribute("users", usersRepository.findAll());
         return "dictionaries";
     }

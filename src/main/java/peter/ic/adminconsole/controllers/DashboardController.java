@@ -21,18 +21,16 @@ public class DashboardController {
     final ServicesRepository servicesRepository;
     final RankRepository rankRepository;
     final StaffRepository staffRepository;
-    final RolesRepository rolesRepository;
     final UsersRepository usersRepository;
     final GenderRepository genderRepository;
 
-    public DashboardController(TurtlePostman turtlePostman, DepartmentRepository departmentRepository, PositionRepository positionRepository, ServicesRepository servicesRepository, RankRepository rankRepository, StaffRepository staffRepository, RolesRepository rolesRepository, UsersRepository usersRepository, GenderRepository genderRepository) {
+    public DashboardController(TurtlePostman turtlePostman, DepartmentRepository departmentRepository, PositionRepository positionRepository, ServicesRepository servicesRepository, RankRepository rankRepository, StaffRepository staffRepository, UsersRepository usersRepository, GenderRepository genderRepository) {
         this.turtlePostman = turtlePostman;
         this.departmentRepository = departmentRepository;
         this.positionRepository = positionRepository;
         this.servicesRepository = servicesRepository;
         this.rankRepository = rankRepository;
         this.staffRepository = staffRepository;
-        this.rolesRepository = rolesRepository;
         this.usersRepository = usersRepository;
         this.genderRepository = genderRepository;
     }
@@ -79,7 +77,6 @@ public class DashboardController {
         model.addAttribute("post", positionRepository.findAll());
         model.addAttribute("services", servicesRepository.findAll());
         model.addAttribute("rank", rankRepository.findAll());
-        model.addAttribute("roles", rolesRepository.findAll());
     }
 
 

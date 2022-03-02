@@ -12,25 +12,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import peter.ic.adminconsole.entity.Staff;
 import peter.ic.adminconsole.entity.Users;
 import peter.ic.adminconsole.repository.*;
+import peter.ic.adminconsole.service.TurtlePostman;
 
 @Controller
 @RequestMapping("/profile")
 public class StaffController {
     final StaffRepository staffRepository;
     final GenderRepository genderRepository;
+    final TurtlePostman turtlePostman;
     final PositionRepository positionRepository;
     final StatusRepository statusRepository;
     final RankRepository rankRepository;
     final DepartmentRepository departmentRepository;
     final UsersRepository usersRepository;
 
-    public StaffController(StaffRepository staffRepository,
-                           GenderRepository genderRepository, PositionRepository positionRepository,
-                           StatusRepository statusRepository, RankRepository rankRepository,
-                           DepartmentRepository departmentRepository,
-                           UsersRepository usersRepository) {
+    public StaffController(StaffRepository staffRepository, GenderRepository genderRepository, TurtlePostman turtlePostman, PositionRepository positionRepository, StatusRepository statusRepository, RankRepository rankRepository, DepartmentRepository departmentRepository, UsersRepository usersRepository) {
         this.staffRepository = staffRepository;
         this.genderRepository = genderRepository;
+        this.turtlePostman = turtlePostman;
         this.positionRepository = positionRepository;
         this.statusRepository = statusRepository;
         this.rankRepository = rankRepository;
@@ -80,6 +79,45 @@ public class StaffController {
         }
         return "profile";
     }
+
+    @PostMapping("/dismiss")
+    public String setDismissal(Staff staff, BindingResult bindingResult, Model model) {
+        User userAuth = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users user = usersRepository.findByUsername(userAuth.getUsername());
+        model.addAttribute("user", user);
+
+        dictionaries(model);
+
+        try {
+//            if (user.getDepartment().getCode() == staff.getDepartment().getCode()
+//                    || inheritanceOfDepartmentsRepository.findInheritance(user.getDepartment().getCode()).contains(staff.getDepartment().getCode())) {
+            model.addAttribute("staffProfile", staffRepository.save(staff));
+            model.addAttribute("resultMessage", "Карточка успешно сохранена");
+            turtlePostman.sendNotification(user,
+                    "Пользователь "
+                            + staff.getFirstName()
+                            + " "
+                            + staff.getMiddleName()
+                            + " "
+                            + staff.getLastName()
+                            + " "
+                            + staff.getUsername()
+                            + " "
+                            + staff.getDepartment().getFullName()
+                            + " "
+                            + staff.getPosition().getTitle()
+                            + " "
+                            + staff.getDismissalDate());
+//            }
+        } catch (Exception e) {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("bindingResult", bindingResult);
+            }
+            model.addAttribute("errors", e.getMessage());
+        }
+        return "profile";
+    }
+
 
     public void dictionaries(Model model) {
         model.addAttribute("gender", genderRepository.findAll());

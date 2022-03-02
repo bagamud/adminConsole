@@ -2,11 +2,14 @@ package peter.ic.adminconsole.service;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import peter.ic.adminconsole.entity.Users;
 
 @Service
 public class TurtlePostman {
+
     final JavaMailSender javaMailSender;
 
     public TurtlePostman(JavaMailSender javaMailSender) {
